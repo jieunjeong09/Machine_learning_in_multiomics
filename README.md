@@ -48,21 +48,22 @@ The example dataset contains **121 colon cancer cases**:
 Runs iClusterPlus for a specified dimension range and 15 seeds.
 Usage example on Mac Mini:
 
-  ```bash
+```bash
 time Rscript pred_iCluster.R 2 8 > iCluster.r1 &
 time Rscript pred_iCluster.R 9 14 > iCluster.r2 &
 time Rscript pred_iCluster.R 15 20 > iCluster.r3 &
 [after jobs complete]
 cat iCluster.r* | awk -f iCluster_table.awk
+```
 
 Output for our data:
-
+```
  D  0  1  2  3  4  5  6  7  8  9 10 11 12 13
  2  .  .  .  .  .  .  .  .  .  .  1  6  6  2
  3  .  .  .  .  .  .  .  .  1  4  2  5  2  1
  ...
 20  1  .  5  6  3  .  .  .  .  .  .  .  .  .
-
+```
 Interpretation:
 	•	Rows = number of dimensions (D = 2…20)
 	•	Columns = number of errors (0…13)
@@ -72,7 +73,7 @@ Observation: More dimensions → fewer errors; some runs at D = 20 achieved perf
 
 ⸻
 
-Future Work
-	•	Add cross-validation script (pred_iCluster_CV.R).
-	•	Richer outputs: for fixed D and seed count, tally misclassifications per sample to build a confidence model.
+## Future Work
+- Add cross-validation script (pred_iCluster_CV.R).
+- Richer outputs: for fixed D and seed count, tally misclassifications per sample to build a confidence model.
 
