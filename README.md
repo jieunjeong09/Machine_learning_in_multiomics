@@ -16,16 +16,16 @@ The example dataset here originates from The Cancer Genome Atlas Pan-Cancer Proj
 ## Methods Overview
 
 Dimension reduction program reduce dimension to `D`, in the case of MFA, the method is deterministic and has a data dependent maximum dimension, for NMF and
-iClusterPlus, tested dimensions are up to `D = 30` for MFA and up to `D = 20` for iClusterPlus.  After dimension reduction, I applied *ridge regression* implemented with `cv.glmnet` with parameter `alpha = 0`.  Selecting the best method may require extensive testing, here I tested different dimension, and for probabilistic methods, with 15 seeds, and we can see clear gains from making many tests.  The objective here is to obtain high *accuracy a*, equivalently, small number or *errors e* where *a = 1 - e/121* (because we predict for 121 samples).
+iClusterPlus, tested dimensions are up to `D = 30` for MFA and up to `D = 20` for iClusterPlus.  After dimension reduction, I applied *ridge regression* implemented with `cv.glmnet` with parameter `alpha = 0`.  Selecting the best method may require extensive testing, here I tested different dimensions, and for probabilistic methods, with 15 seeds, and we can see clear gains from making many tests.  The objective here is to obtain high *accuracy a*, equivalently, small number or *errors e* where *a = 1 - e/121* (because we predict for 121 samples).
 
 - **MFA (Multiple Factor Analysis):**  
   Fast, used 5 dimensions in this dataset. Best number of errors is 8 (accuracy 0.934).
 
 - **NMF (Nonnegative Matrix Factorization):**  
-  Tested up to `D = 30`. For `D = 29` the least number of errors was 4.
+  Tested up to `D = 30`. For `D = 29` the least number of errors was 4 (accuracy 0.967
 
 - **iClusterPlus:**  
-  More time-consuming (~20s per run on tested data). Requires testing multiple seeds for each number of dimensions (D). For `D = 20`, the least number of errors was 0 (!!!). 
+  More time-consuming (~20s per run on tested data, while NMF, ~7s per run).  For `D = 20`, the least number of errors was 0 (accuracy 1!!!). 
 ---
 
 ## Repository Structure
@@ -37,10 +37,7 @@ iClusterPlus, tested dimensions are up to `D = 30` for MFA and up to `D = 20` fo
 
 - `data_heatmaps.R`  
   Produces heatmaps (`Heatmap_cnv.pdf`, `Heatmap_gex.pdf`, `Heatmap_mut.pdf`).  
-  Clustering suggests **no single omic alone can identify subtypes**.
-
-- `pred_mfa`
-  Produces all predictions for the possible dimensions, may need a modification if the latter is very high...
+  Clustering suggests **no single omic alone can identify subtypes**
   
 - `pred_mfa.R`  
   Runs MFA-based dimension reduction, saves heatmap (`mfa_Heatmap.pdf`) and elastic net classification results.  
