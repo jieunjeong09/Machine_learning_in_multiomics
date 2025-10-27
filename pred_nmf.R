@@ -30,10 +30,10 @@ for (D in Dmin:Dmax) {
   for (s in 2*(1:SeedN) + 3) {
     set.seed(s)  # to ensure reproducibility
     fit <- nmf(X_all, D, method = "Frobenius", seed = s)
-    X_lat <- coef(fit) 
+    X_lat <- t(coef(fit)) 
 
     # Logistic regression (ridge, alpha=0)
-    cvfit <- cv.glmnet(t(X_lat), y, family = "binomial", alpha = 0, nfolds = 10)
+    cvfit <- cv.glmnet(X_lat, y, family = "binomial", alpha = 0, nfolds = 10)
 
     cat("Seed:", s, "Dimension:", D, "\n")
 
@@ -41,7 +41,7 @@ for (D in Dmin:Dmax) {
     print(coef(cvfit, s = "lambda.min"))
 
     # Predict on same latent space (for demonstration)
-    pred <- predict(cvfit, t(X_lat), s = "lambda.min", type = "class")
+    pred <- predict(cvfit, X_lat, s = "lambda.min", type = "class")
 
     # Confusion matrix
     print(table(Predicted = pred, Observed = y))
