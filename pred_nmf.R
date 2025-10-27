@@ -28,7 +28,7 @@ row_names <- colnames(X_all)  # useful for checking results on sample level
 # Loop over factorization dimensions and seeds
 for (D in Dmin:Dmax) {
   for (s in 2*(1:SeedN) + 3) {
-    set.seed(s)  # ✔ good to ensure reproducibility
+    set.seed(s)  # to ensure reproducibility
     fit <- nmf(X_all, D, method = "Frobenius", seed = s)
     X_lat <- coef(fit) 
 
