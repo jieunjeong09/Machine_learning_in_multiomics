@@ -14,8 +14,8 @@ x3 <- X[[3]]
 y <- as.integer(anno_col$cms == "CMS1")
 row_names <- colnames(x1)
 
-for (D in 2:15) {
-  for (s in (1:15)*2) {
+for (D in Dmin:Dmax) {
+  for (s in (1:SeedN)*2) {
     set.seed(s)
     r.icluster <- iClusterPlus::iClusterPlus(
       t(x1),t(x2),t(x3),
